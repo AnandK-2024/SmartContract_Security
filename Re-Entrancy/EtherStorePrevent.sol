@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
-contract EtherStore {
 
+contract EtherStore {
     // initialise the mutex
     bool reEntrancyMutex = false;
     uint256 public withdrawalLimit = 1 ether;
@@ -12,7 +12,7 @@ contract EtherStore {
         balances[msg.sender] += msg.value;
     }
 
-    function withdrawFunds (uint256 _weiToWithdraw) public {
+    function withdrawFunds(uint256 _weiToWithdraw) public {
         require(!reEntrancyMutex);
         require(balances[msg.sender] >= _weiToWithdraw);
         // limit the withdrawal
@@ -27,4 +27,4 @@ contract EtherStore {
         // release the mutex after the external call
         reEntrancyMutex = false;
     }
- }
+}
